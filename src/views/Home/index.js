@@ -6,23 +6,29 @@ import { USER_INFO } from '../../consts';
 import NavBar from '../../components/NavBar';
 
 export default () => {
-  const [isInfoLoaded, setInfoLoaded] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    if (!isInfoLoaded) {
+    if (!userInfo) {
       loadUserInfo();
     }
-  }, [isInfoLoaded]);
+  }, [userInfo]);
 
   const loadUserInfo = async () => {
-    const userInfo = await getItem(USER_INFO);
-    console.log(userInfo); 
-    setInfoLoaded(true);
-  }
+    const info = await getItem(USER_INFO);
+
+    if (info) {
+      setUserInfo(JSON.parse(info));
+    }
+  };
+
+  const handleThumbnailClick = () => {
+    // TODO
+  };
 
   return(
     <Container>
-      <NavBar/>
+      <NavBar info={userInfo} onThumbnailClick={handleThumbnailClick}/>
     </Container>
   );
 }
