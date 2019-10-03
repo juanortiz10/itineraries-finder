@@ -4,9 +4,10 @@ import { Container, Text, Content, Button, Spinner, Grid } from "native-base";
 import { Image } from "react-native";
 import * as Font from "expo-font";
 
-import { ROBOTO, ROBOTO_MEDIUM, HOME } from "../../consts";
+import { ROBOTO, ROBOTO_MEDIUM, HOME, USER_INFO, ACCESS_TOKEN } from "../../consts";
 import styles from "./style";
 import getEnvVars from "../../../environment";
+import { saveItem } from '../../utils/storage';
 
 const {
   iosClientId,
@@ -46,7 +47,14 @@ export default ({ navigation }) => {
       });
 
       if (type === SUCCESS) {
-        navigation.navigate(HOME);
+        const userResult = await saveItem(USER_INFO, JSON.stringify(user));
+        const accessTokenResult = await saveItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+
+        if (userResult && accessTokenResult) {
+          navigation.navigate(HOME);
+        }else {
+          alert('Something went wrong!');
+        }
       }
     } catch ({ message }) {
       alert("Error: " + message);
