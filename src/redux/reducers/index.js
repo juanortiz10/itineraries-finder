@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-const initialState = () => ({});
+import flights from './flights';
 
 export default combineReducers({
-  initialState
+  flights
 });
