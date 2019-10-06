@@ -7,13 +7,13 @@ import {
 export default function(state = {} , action) {
   switch (action.type) {
     case GET_LOCATIONS_START:
-      return { ...state };
+      return { ...state, places: null };
       break;
     case GET_LOCATIONS_ERROR:
-      return { ...state };
+      return { ...state, places: null };
       break;
     case GET_LOCATIONS_COMPLETE:
-      return { ...state };
+      return { ...state, places: action.results };
       break;
     default:
       return { ...state };

@@ -14,7 +14,7 @@ const homeImage = require("../../../assets/home.jpg");
 const ROBOTO_PATH = require("../../../node_modules/native-base/Fonts/Roboto.ttf");
 const ROBOTO_MEDIUM_PATH = require("../../../node_modules/native-base/Fonts/Roboto_medium.ttf");
 
-export default () => {
+export default ({ navigation }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
@@ -68,7 +68,7 @@ export default () => {
       />
       <Content contentContainerStyle={[genericStyles.contentContainerStyle, styles.container]}>
         <Grid style={genericStyles.centeredGridStyle}>
-          <SearchComponent />
+          <SearchComponent navigation={navigation}/>
         </Grid>
         {/*<Image source={homeImage} style={styles.homeImage} resizeMode="cover"/>*/}
       </Content>
