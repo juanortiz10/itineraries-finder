@@ -6,6 +6,7 @@ import * as Font from "expo-font";
 
 import { ROBOTO, ROBOTO_MEDIUM, HOME, USER_INFO, ACCESS_TOKEN } from "../../consts";
 import styles from "./style";
+import genericStyles from '../../styles';
 import getEnvVars from "../../../environment";
 import { saveItem } from '../../utils/storage';
 
@@ -71,8 +72,8 @@ export default ({ navigation }) => {
 
   return (
     <Container>
-      <Content contentContainerStyle={styles.contentContainerStyle}>
-        <Grid style={styles.gridStyle}>
+      <Content contentContainerStyle={genericStyles.contentContainerStyle}>
+        <Grid style={genericStyles.centeredGridStyle}>
           <Text style={styles.welcomeText}>Bienvenido</Text>
           <Text style={styles.loginText}>Inicia sesion para continuar</Text>
           <Button

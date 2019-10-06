@@ -11,3 +11,4 @@ export const ACCESS_TOKEN = '@access-token';
 export const WHITE = '#fff';
 export const PRIMARY = '#512da8';
 export const PRIMARY_DARK = '#311b92';
+export const SECONDARY = '#F5B72C';

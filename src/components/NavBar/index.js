@@ -5,11 +5,11 @@ import { TouchableOpacity } from 'react-native';
 import styles from "./style";
 import { PRIMARY_DARK } from "../../consts";
 
-export default function NavBar({ info, onThumbnailClick }) {
+export default function NavBar({ title, info, onThumbnailClick }) {
   return (
     <Header style={styles.header} androidStatusBarColor={PRIMARY_DARK}>
       <Left>
-        <Text style={styles.headerTitle}>Home</Text>
+        <Text style={styles.headerTitle}>{title}</Text>
       </Left>
       <Right>
         <Button onPress={onThumbnailClick} transparent>
