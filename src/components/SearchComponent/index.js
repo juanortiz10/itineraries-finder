@@ -10,7 +10,8 @@ import {
   Button,
   Text,
   Icon,
-  DatePicker
+  DatePicker,
+  Picker
 } from "native-base";
 
 import { RESULTS } from '../../consts';
@@ -27,6 +28,10 @@ export default function SearchComponent({ navigation }) {
 
   const [showDestinationPlaceList, setShowDestinationPlaceList] = useState(false);
   const [destinationPlace, setDestinationPlace] = useState({ PlaceName: "" });
+
+  const [adults, setAdults] = useState(-1);
+  const [children, setChildren] = useState(-1);
+  const [cabinClass, setCabinClass] = useState(-1);
 
   const places = useSelector(state => state.flights.places);
   const dispatch = useDispatch();
@@ -63,6 +68,10 @@ export default function SearchComponent({ navigation }) {
     setShowDestinationPlaceList(false);
   };
 
+  const handleCabinClassChange = cabinClass => {
+    setCabinClass(cabinClass);
+  };
+
   const handleSearchPress = () => {
     const outboundpartialdate = moment(outBoundDate).format('YYYY-MM-DD');
     const inboundpartialdate = moment(inBoundDate).format('YYYY-MM-DD');
@@ -80,6 +89,14 @@ export default function SearchComponent({ navigation }) {
       return true;
     }
   }
+
+  const handleAdultsChange = value => {
+    setAdults(value);
+  };
+
+  const handleChildrenChange = value => {
+    setChildren(value);
+  };
 
   return (
     <Form style={styles.form}>
@@ -134,6 +151,42 @@ export default function SearchComponent({ navigation }) {
           onDateChange={newDate => setInboundDate(newDate)}
         />
         <Icon name="calendar" />
+      </Item>
+      <Item style={styles.input}>
+        <Icon name="person"/>
+        <Picker
+          selectedValue={adults}
+          onValueChange={handleAdultsChange}>
+          <Picker.Item label="Adultos" value="-1" />
+          <Picker.Item label="1" value="1" />
+          <Picker.Item label="2" value="2" />
+          <Picker.Item label="3" value="3" />
+          <Picker.Item label="4" value="4" />
+          <Picker.Item label="5" value="5" />
+        </Picker>
+        <Icon name="person"/>
+        <Picker
+          selectedValue={children}
+          onValueChange={handleChildrenChange}>
+          <Picker.Item label="Niños" value="-1" />
+          <Picker.Item label="1" value="1" />
+          <Picker.Item label="2" value="2" />
+          <Picker.Item label="3" value="3" />
+          <Picker.Item label="4" value="4" />
+          <Picker.Item label="5" value="5" />
+        </Picker>
+      </Item>
+      <Item>
+        <Icon name="happy"/>
+        <Picker
+          selectedValue={cabinClass}
+          onValueChange={handleCabinClassChange}>
+          <Picker.Item label="Clase" value="-1" />
+          <Picker.Item label="Economica" value="economy" />
+          <Picker.Item label="Premium" value="premiumeconomy" />
+          <Picker.Item label="Negocios" value="business" />
+          <Picker.Item label="Primera clase" value="first" />
+        </Picker>
       </Item>
       { (!showOriginPlaceList && !showDestinationPlaceList) && (
         <Button full style={styles.searchButton} onPress={handleSearchPress} disabled={isSearchButtonDisabled()}>
