@@ -20,8 +20,8 @@ export function* getLocations({ payload }) {
     const url = `/autosuggest/v1.0/${country}/${currency}/${locale}/?query=${query}`;
     const results = yield call(apiCall, url, "GET");
 
-    if (results && results.Places) {
-      yield put({ type: GET_LOCATIONS_COMPLETE, results: results.Places });
+    if (results.data && results.data.Places) {
+      yield put({ type: GET_LOCATIONS_COMPLETE, results: results.data.Places });
     }
   } catch (error) {
     yield put({ type: GET_LOCATIONS_ERROR, error });
@@ -31,17 +31,48 @@ export function* getLocations({ payload }) {
 export function* getRoutes({ payload }) {
   try {
     const {
-      originplace,
-      destinationplace,
-      outboundpartialdate,
-      inboundpartialdate
+      originPlace,
+      destinationPlace,
+      outboundDate,
+      inboundDate,
+      adults,
+      children,
+      cabinClass
     } = payload;
 
-    const url = `/browseroutes/v1.0/${country}/${currency}/${locale}/${originplace}/${destinationplace}/${outboundpartialdate}?inboundpartialdate=${inboundpartialdate}`;
-    const results = yield call(apiCall, url, 'GET');
+    const headers = {
+      "content-type": "application/x-www-form-urlencoded"
+    };
 
-    yield put({ type: GET_ROUTES_SUCCESS, results });
+    const body = {
+      inboundDate,
+      cabinClass,
+      children,
+      country,
+      currency,
+      locale,
+      originPlace,
+      destinationPlace,
+      outboundDate,
+      adults
+    };
+
+    const sessionResult = yield call(apiCall, '/pricing/v1.0', 'POST', new URLSearchParams(body), headers);
+    const locationHeader = sessionResult.headers.location;
+
+    if (locationHeader) {
+      const sessionToken = locationHeader.substring(locationHeader.lastIndexOf('/') + 1, locationHeader.length);
+
+      const pollSessionResults = yield call(apiCall, `/pricing/uk2/v1.0/${sessionToken}`, 'GET');
+
+      if (!pollSessionResults) {
+        yield put({ type: GET_ROUTES_ERROR, error: 'Something went wrong!' });
+      }
+
+      yield put({ type: GET_ROUTES_SUCCESS, results: pollSessionResults.data });  
+    }
   } catch (error) {
+    console.log(error.response);
     yield put({ type: GET_ROUTES_ERROR, error });
   }
 }

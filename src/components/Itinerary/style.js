@@ -7,11 +7,21 @@ export default StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 12
   },
+  titlesContainer: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start'
+  },
   title: {
     fontSize: 18,
     fontWeight: '500'
   },
-  airlineName: {
+  label: {
+    fontSize: 16,
+    fontWeight: '500'
+  },
+  subtitle: {
+    fontSize: 16,
     fontWeight: '300'
   }
 });

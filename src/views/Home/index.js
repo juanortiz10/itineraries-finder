@@ -62,7 +62,6 @@ export default ({ navigation }) => {
   return (
     <Container>
       <NavBar
-        title="Home"
         info={userInfo}
         onThumbnailClick={handleThumbnailClick}
       />

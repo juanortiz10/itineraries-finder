@@ -20,8 +20,8 @@ import { getLocations } from "../../redux/actions/flights";
 import styles from "./style";
 
 export default function SearchComponent({ navigation }) {
-  const [outBoundDate, setOutboundDate] = useState(null);
-  const [inBoundDate, setInboundDate] = useState(null);
+  const [outboundDate, setoutboundDate] = useState(null);
+  const [inboundDate, setinboundDate] = useState(null);
 
   const [showOriginPlaceList, setShowOriginPlaceList] = useState(false);
   const [originPlace, setOriginPlace] = useState({ PlaceName: "" });
@@ -29,9 +29,9 @@ export default function SearchComponent({ navigation }) {
   const [showDestinationPlaceList, setShowDestinationPlaceList] = useState(false);
   const [destinationPlace, setDestinationPlace] = useState({ PlaceName: "" });
 
-  const [adults, setAdults] = useState(-1);
-  const [children, setChildren] = useState(-1);
-  const [cabinClass, setCabinClass] = useState(-1);
+  const [adults, setAdults] = useState(0);
+  const [children, setChildren] = useState(0);
+  const [cabinClass, setCabinClass] = useState(0);
 
   const places = useSelector(state => state.flights.places);
   const dispatch = useDispatch();
@@ -73,19 +73,19 @@ export default function SearchComponent({ navigation }) {
   };
 
   const handleSearchPress = () => {
-    const outboundpartialdate = moment(outBoundDate).format('YYYY-MM-DD');
-    const inboundpartialdate = moment(inBoundDate).format('YYYY-MM-DD');
-
     navigation.navigate(RESULTS, {
-      outboundpartialdate,
-      inboundpartialdate,
-      originplace: originPlace.PlaceId,
-      destinationplace: destinationPlace.PlaceId
+      outboundDate: moment(outboundDate).format('YYYY-MM-DD'),
+      inboundDate: moment(inboundDate).format('YYYY-MM-DD'),
+      originPlace: originPlace.PlaceId,
+      destinationPlace: destinationPlace.PlaceId,
+      adults,
+      children,
+      cabinClass
     });
   };
 
   const isSearchButtonDisabled = () => {
-    if (!outBoundDate || !inBoundDate || !originPlace || !destinationPlace) {
+    if (!outboundDate || !inboundDate || !originPlace || !destinationPlace || !adults) {
       return true;
     }
   }
@@ -141,14 +141,14 @@ export default function SearchComponent({ navigation }) {
         <DatePicker
           style={styles.input}
           placeHolderText="Ida"
-          onDateChange={newDate => setOutboundDate(newDate)}
+          onDateChange={newDate => setoutboundDate(newDate)}
         />
         <Icon name="calendar" />
 
         <DatePicker
           style={styles.input}
           placeHolderText="Regreso"
-          onDateChange={newDate => setInboundDate(newDate)}
+          onDateChange={newDate => setinboundDate(newDate)}
         />
         <Icon name="calendar" />
       </Item>
@@ -157,7 +157,7 @@ export default function SearchComponent({ navigation }) {
         <Picker
           selectedValue={adults}
           onValueChange={handleAdultsChange}>
-          <Picker.Item label="Adultos" value="-1" />
+          <Picker.Item label="Adultos" value="0" />
           <Picker.Item label="1" value="1" />
           <Picker.Item label="2" value="2" />
           <Picker.Item label="3" value="3" />
@@ -168,7 +168,7 @@ export default function SearchComponent({ navigation }) {
         <Picker
           selectedValue={children}
           onValueChange={handleChildrenChange}>
-          <Picker.Item label="Niños" value="-1" />
+          <Picker.Item label="Niños" value="0" />
           <Picker.Item label="1" value="1" />
           <Picker.Item label="2" value="2" />
           <Picker.Item label="3" value="3" />
@@ -181,7 +181,7 @@ export default function SearchComponent({ navigation }) {
         <Picker
           selectedValue={cabinClass}
           onValueChange={handleCabinClassChange}>
-          <Picker.Item label="Clase" value="-1" />
+          <Picker.Item label="Clase" value="0" />
           <Picker.Item label="Economica" value="economy" />
           <Picker.Item label="Premium" value="premiumeconomy" />
           <Picker.Item label="Negocios" value="business" />

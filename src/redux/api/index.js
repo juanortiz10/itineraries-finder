@@ -1,10 +1,13 @@
 const baseUrl =
   "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices";
 
-export default (url, method, body, headers) =>
-  fetch(baseUrl + url, {
+import axios from "axios";
+
+export default (url, method, data, headers) =>
+  axios({
+    url: baseUrl + url,
     method,
-    ...body,
+    data,
     headers: {
       "x-rapidapi-host":
         "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
@@ -12,6 +15,5 @@ export default (url, method, body, headers) =>
       ...headers
     }
   })
-  .then(response => response.json())
-  .then(results => results)
-  .catch(error => error);
+    .then(response => response)
+    .catch(error => error);
