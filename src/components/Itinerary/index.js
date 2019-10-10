@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import styles from './style';
 
-export default function Itinerary({ OutboundLegId, InboundLegId, PricingOptions, Carriers, Legs, Agents }) {
+export default function Itinerary({ OutboundLegId, InboundLegId, PricingOptions, Carriers, Legs, Agents, number }) {
 
   const handleViewMorePress = () => {
     Linking.openURL(PricingOptions[0].DeeplinkUrl).catch((err) => alert('An error occurred', err));
@@ -17,12 +17,14 @@ export default function Itinerary({ OutboundLegId, InboundLegId, PricingOptions,
         const agent = Agents.filter(agent => agent.Id === pricingOpt.Agents[0])[0];
 
         return(
-          <View key={index}>
+          <View key={index} style={styles.pricingOptionContainer}>
             <View>
-              <Image source={{ uri: agent.ImageUrl }} style={{ width: 100, height: 50 }}/>
-              <Text style={styles.label}>{agent.Name}</Text>
+              <Image source={{ uri: agent.ImageUrl }} style={styles.carrierImage}/>
             </View>
-            <Text style={styles.label}>Precio <Text style={styles.subtitle}>${pricingOpt.Price} USD</Text></Text>
+            <View style={styles.pricingOptionRighItem}>
+              <Text style={styles.label}>{agent.Name}</Text>
+              <Text style={styles.label}>Precio <Text style={styles.subtitle}>${pricingOpt.Price} USD</Text></Text>
+            </View>
           </View>
         );
       })
@@ -37,15 +39,15 @@ export default function Itinerary({ OutboundLegId, InboundLegId, PricingOptions,
       <Fragment>
         <CardItem bordered style={styles.titlesContainer}>
           <Text style={styles.title}>Vuelo de ida</Text>
-          <Text style={styles.label}>Hora de despegue: <Text style={styles.subtitle}>{moment(outboundLeg.Departure).format('LLL')}</Text></Text>
-          <Text style={styles.label}>Hora de aterrizaje: <Text style={styles.subtitle}>{moment(outboundLeg.Arrival).format('LLL')}</Text></Text>
-          <Text style={styles.label}>Duracion de vuelo: <Text style={styles.subtitle}>{((outboundLeg.Duration) / 60).toFixed(2)} horas</Text></Text>
+          <Text style={styles.label}>Despegue: <Text style={styles.subtitle}>{moment(outboundLeg.Departure).format('LLL')}</Text></Text>
+          <Text style={styles.label}>Aterrizaje: <Text style={styles.subtitle}>{moment(outboundLeg.Arrival).format('LLL')}</Text></Text>
+          <Text style={styles.label}>Duracion: <Text style={styles.subtitle}>{((outboundLeg.Duration) / 60).toFixed(2)} horas</Text></Text>
         </CardItem>
         <CardItem bordered style={styles.titlesContainer}>
           <Text style={styles.title}>Vuelo de regreso</Text>
-          <Text style={styles.label}>Hora de despegue: <Text style={styles.subtitle}>{moment(inboundLeg.Departure).format('LLL')}</Text></Text>
-          <Text style={styles.label}>Hora de aterrizaje: <Text style={styles.subtitle}>{moment(inboundLeg.Arrival).format('LLL')}</Text></Text>
-          <Text style={styles.label}>Duracion de vuelo: <Text style={styles.subtitle}>{((outboundLeg.Duration) / 60).toFixed(2)} horas</Text></Text>
+          <Text style={styles.label}>despegue: <Text style={styles.subtitle}>{moment(inboundLeg.Departure).format('LLL')}</Text></Text>
+          <Text style={styles.label}>aterrizaje: <Text style={styles.subtitle}>{moment(inboundLeg.Arrival).format('LLL')}</Text></Text>
+          <Text style={styles.label}>Duracion: <Text style={styles.subtitle}>{((outboundLeg.Duration) / 60).toFixed(2)} horas</Text></Text>
         </CardItem>
       </Fragment>
     );
@@ -53,6 +55,7 @@ export default function Itinerary({ OutboundLegId, InboundLegId, PricingOptions,
 
   return(
     <Card style={styles.card}>
+      <Text style={styles.itineraryNumber}>Itinerario #{number}</Text>
       {renderLegs()}
       <CardItem bordered style={styles.titlesContainer}>
         {renderPricingOptions()}

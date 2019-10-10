@@ -23,5 +23,21 @@ export default StyleSheet.create({
   subtitle: {
     fontSize: 16,
     fontWeight: '300'
+  },
+  itineraryNumber: {
+    fontSize: 20,
+    fontWeight: '500'
+  },
+  pricingOptionContainer: {
+    flexDirection: 'row',
+    marginTop: 7,
+    marginBottom: 7
+  },
+  carrierImage: {
+    width: 80,
+    height: 40
+  },
+  pricingOptionRighItem: {
+    marginLeft: 18
   }
 });

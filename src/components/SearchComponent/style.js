@@ -24,5 +24,9 @@ export default StyleSheet.create({
   searchButton: {
     marginTop: 24,
     backgroundColor: SECONDARY
+  },
+  pickersContainer: {
+    marginTop: 14,
+    marginBottom: 14
   }
 });

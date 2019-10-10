@@ -152,7 +152,7 @@ export default function SearchComponent({ navigation }) {
         />
         <Icon name="calendar" />
       </Item>
-      <Item style={styles.input}>
+      <Item style={styles.pickersContainer}>
         <Icon name="person"/>
         <Picker
           selectedValue={adults}

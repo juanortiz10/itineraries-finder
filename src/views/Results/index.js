@@ -75,13 +75,13 @@ export default function Results({ navigation }) {
 
   const renderItineraries = () => {
     if (routesData && routesData.Itineraries) {
-      return routesData.Itineraries.map((itinerary, index) => <Itinerary key={index} {...itinerary} Carriers={routesData.Carriers} Agents={routesData.Agents} Legs={routesData.Legs}/>);
+      return routesData.Itineraries.map((itinerary, index) => <Itinerary key={index} {...itinerary} Carriers={routesData.Carriers} Agents={routesData.Agents} Legs={routesData.Legs} number={index + 1}/>);
     }
   };
 
   const renderSearchInfo = () => {
     return(
-      <Card>
+      <Card style={styles.infoContainer}>
         <Text>Desde: {originPlace}</Text>
         <Text>Hacia: {destinationPlace}</Text>
       </Card>
@@ -125,7 +125,7 @@ export default function Results({ navigation }) {
 
   return (
       <Container style={styles.container}>
-        <Content>
+        <Content padder>
           {renderSearchInfo()}
           {renderItineraries()}
         </Content>
