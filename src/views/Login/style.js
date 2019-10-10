@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   contentContainerStyle: {
@@ -11,8 +13,8 @@ export default StyleSheet.create({
   googleButton: {
     marginTop: 20,
     height: 60,
-    alignItems: 'center',
-    justifyContent: 'center'
+    width: width / 1.5,
+    alignSelf: 'center'
   },
   googleIcon: {
     width: 50,

@@ -4,6 +4,15 @@ import { PRIMARY, WHITE, SECONDARY } from '../../consts';
 const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
+  backContainer: {
+    position: 'absolute',
+    top: width / 10,
+    left: width / 18
+  },
+  backIcon: {
+    fontSize: 30,
+    color: WHITE
+  },
   container: {
     backgroundColor: PRIMARY
   },

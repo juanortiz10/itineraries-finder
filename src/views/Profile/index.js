@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Content, Container, Spinner, View, Text, Grid, Thumbnail, Button } from 'native-base';
+import { Platform } from 'react-native';
+import { Content, Container, Spinner, View, Text, Grid, Thumbnail, Button, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 
 import { getItem, clearAll } from '../../utils/storage';
@@ -23,9 +24,10 @@ export default function Profile({ navigation }) {
 
   const handleLogoutPress = async () => {
     const clearResult = await clearAll();
-    console.log(clearResult);
     navigation.reset([NavigationActions.navigate({ routeName: LOGIN })], 0);
   };
+
+  const handleBackPress = () => navigation.goBack();
 
   if (!profileInfo) {
     return <Spinner size={50}/>;
@@ -49,6 +51,11 @@ export default function Profile({ navigation }) {
   return(
     <Container style={styles.container}>
       <Content contentContainerStyle={[genericStyles.contentContainerStyle, styles.container]}>
+        <View style={styles.backContainer}>
+          <Button transparent style={styles.backButton} onPress={handleBackPress}>
+            <Icon name={Platform.OS === 'ios' ? "ios-arrow-back" : "md-arrow-back"} style={styles.backIcon}/>
+          </Button>
+        </View>
         <Grid style={genericStyles.centeredGridStyle}>
           {renderUserInfo()}
         </Grid>
