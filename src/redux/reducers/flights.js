@@ -22,7 +22,7 @@ export default function(state = {} , action) {
       return { ...state, routes: null };
       break;
     case GET_ROUTES_ERROR:
-      return { ...state, routes: null };
+      return { ...state, routes: null, error: action.error };
       break;
     case GET_ROUTES_SUCCESS:
       return { ...state, routes: action.results };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Content, Spinner, Grid } from "native-base";
-import { Image } from "react-native";
+import { Image, BackHandler } from "react-native";
 import * as Font from "expo-font";
 
 import { getItem } from "../../utils/storage";
@@ -27,9 +27,17 @@ export default ({ navigation }) => {
       if (!fontsLoaded) {
         loadFonts();
       }
+
+      BackHandler.addEventListener('hardwareBackPress', handleBackButtonPressAndroid);
+
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress');
+      };
     },
     [userInfo, fontsLoaded]
   );
+
+  const handleBackButtonPressAndroid = () => true;
 
   const loadUserInfo = async () => {
     const info = await getItem(USER_INFO);

@@ -62,17 +62,16 @@ export function* getRoutes({ payload }) {
 
     if (locationHeader) {
       const sessionToken = locationHeader.substring(locationHeader.lastIndexOf('/') + 1, locationHeader.length);
-
-      const pollSessionResults = yield call(apiCall, `/pricing/uk2/v1.0/${sessionToken}`, 'GET');
+      const pollSessionResults = yield call(apiCall, `/pricing/uk2/v1.0/${sessionToken}?pageIndex=0&pageSize=11`, 'GET');
 
       if (!pollSessionResults) {
         yield put({ type: GET_ROUTES_ERROR, error: 'Something went wrong!' });
       }
 
-      yield put({ type: GET_ROUTES_SUCCESS, results: pollSessionResults.data });  
+      yield put({ type: GET_ROUTES_SUCCESS, results: pollSessionResults.data });
     }
   } catch (error) {
-    console.log(error.response);
+    console.log(error);
     yield put({ type: GET_ROUTES_ERROR, error });
   }
 }
