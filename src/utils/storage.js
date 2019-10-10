@@ -16,3 +16,11 @@ export const getItem = async (keyValue) => {
     return error;
   }
 };
+
+export const clearAll = async () => {
+  try {
+    return await AsyncStorage.clear();
+  } catch (error) {
+    return error;
+  }
+};

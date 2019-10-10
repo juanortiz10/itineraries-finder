@@ -5,6 +5,7 @@ export const HOME = 'Home';
 export const LOGIN = 'Login';
 export const LOADING_PAGE = 'LoadingPage';
 export const RESULTS = 'Results';
+export const PROFILE = 'Profile';
 
 export const USER_INFO = '@user-info';
 export const ACCESS_TOKEN = '@access-token';

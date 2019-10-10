@@ -4,7 +4,7 @@ import { Image, BackHandler } from "react-native";
 import * as Font from "expo-font";
 
 import { getItem } from "../../utils/storage";
-import { USER_INFO, ROBOTO, ROBOTO_MEDIUM } from "../../consts";
+import { USER_INFO, ROBOTO, ROBOTO_MEDIUM, PROFILE } from "../../consts";
 import NavBar from "../../components/NavBar";
 import SearchComponent from "../../components/SearchComponent";
 import styles from "./style";
@@ -56,7 +56,7 @@ export default ({ navigation }) => {
   };
 
   const handleThumbnailClick = () => {
-    // TODO
+    navigation.navigate(PROFILE);
   };
 
   if (!fontsLoaded) {
