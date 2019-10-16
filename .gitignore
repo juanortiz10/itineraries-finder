@@ -101,5 +101,5 @@ shellAppWorkspaces
 # Expo Client builds
 /client-builds
 
-# Expo web env
+# Expo env
 environment.js
