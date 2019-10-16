@@ -10,14 +10,17 @@ import LoadingPage from '../views/LoadingPage';
 import Results from '../views/Results';
 import Profile from '../views/Profile';
 
-const AppNavigator = createStackNavigator({
-  [LOADING_PAGE]: LoadingPage,
-  [LOGIN]: Login,
-  [HOME]: Home,
-  [RESULTS]: Results,
-  [PROFILE]: Profile
-}, {
-  headerMode: 'none'
-});
+const AppNavigator = createStackNavigator(
+  {
+    [LOADING_PAGE]: LoadingPage,
+    [LOGIN]: Login,
+    [HOME]: Home,
+    [RESULTS]: Results,
+    [PROFILE]: Profile,
+  },
+  {
+    headerMode: 'none',
+  },
+);
 
 export default createAppContainer(AppNavigator);

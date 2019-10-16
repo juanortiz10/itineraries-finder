@@ -1,39 +1,48 @@
-import React, { useState, useEffect } from "react";
-import * as Google from "expo-google-app-auth";
-import { Container, Text, Content, Button, Spinner, Grid } from "native-base";
-import { Image } from "react-native";
-import * as Font from "expo-font";
+import React, { useState, useEffect } from 'react';
+import * as Google from 'expo-google-app-auth';
+import { Container, Text, Content, Button, Spinner, Grid } from 'native-base';
+import { Image } from 'react-native';
+import * as Font from 'expo-font';
 
-import { ROBOTO, ROBOTO_MEDIUM, HOME, USER_INFO, ACCESS_TOKEN } from "../../consts";
-import styles from "./style";
+import {
+  ROBOTO,
+  ROBOTO_MEDIUM,
+  HOME,
+  USER_INFO,
+  ACCESS_TOKEN,
+} from '../../consts';
+import styles from './style';
 import genericStyles from '../../styles';
-import getEnvVars from "../../../environment";
+import getEnvVars from '../../../environment';
 import { saveItem } from '../../utils/storage';
 
 const {
   iosClientId,
   androidClientId,
   iosStandaloneAppClientId,
-  androidStandaloneAppClientId
+  androidStandaloneAppClientId,
 } = getEnvVars();
-const GOOGLE_ICON = require("../../../assets/google-icon.png");
-const ROBOTO_PATH = require("../../../node_modules/native-base/Fonts/Roboto.ttf");
-const ROBOTO_MEDIUM_PATH = require("../../../node_modules/native-base/Fonts/Roboto_medium.ttf");
-const SUCCESS = "success";
+const GOOGLE_ICON = require('../../../assets/google-icon.png');
+const ROBOTO_PATH = require('../../../node_modules/native-base/Fonts/Roboto.ttf');
+const ROBOTO_MEDIUM_PATH = require('../../../node_modules/native-base/Fonts/Roboto_medium.ttf');
+const SUCCESS = 'success';
 
 export default ({ navigation }) => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  useEffect(() => {
-    if (!fontsLoaded) {
-      loadFonts();
-    }
-  }, [fontsLoaded]);
+  useEffect(
+    () => {
+      if (!fontsLoaded) {
+        loadFonts();
+      }
+    },
+    [fontsLoaded],
+  );
 
   const loadFonts = async () => {
     await Font.loadAsync({
       [ROBOTO]: ROBOTO_PATH,
-      [ROBOTO_MEDIUM]: ROBOTO_MEDIUM_PATH
+      [ROBOTO_MEDIUM]: ROBOTO_MEDIUM_PATH,
     });
     setFontsLoaded(true);
   };
@@ -44,21 +53,24 @@ export default ({ navigation }) => {
         iosClientId,
         androidClientId,
         iosStandaloneAppClientId,
-        androidStandaloneAppClientId
+        androidStandaloneAppClientId,
       });
 
       if (type === SUCCESS) {
         const userResult = await saveItem(USER_INFO, JSON.stringify(user));
-        const accessTokenResult = await saveItem(ACCESS_TOKEN, JSON.stringify(accessToken));
+        const accessTokenResult = await saveItem(
+          ACCESS_TOKEN,
+          JSON.stringify(accessToken),
+        );
 
         if (userResult && accessTokenResult) {
           navigation.navigate(HOME);
-        }else {
+        } else {
           alert('Something went wrong!');
         }
       }
     } catch ({ message }) {
-      alert("Error: " + message);
+      alert('Error: ' + message);
     }
   };
 
@@ -81,8 +93,7 @@ export default ({ navigation }) => {
             onPress={handleRequestSignIn}
             light
             iconLeft
-            full
-          >
+            full>
             <Image source={GOOGLE_ICON} style={styles.googleIcon} />
             <Text style={styles.googleButtonText}>Google</Text>
           </Button>

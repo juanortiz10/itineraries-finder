@@ -1,11 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Container, Content, Text, Spinner, Grid, View, Card, Button } from "native-base";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import {
+  Container,
+  Content,
+  Text,
+  Spinner,
+  Grid,
+  View,
+  Card,
+  Button,
+} from 'native-base';
+import { useDispatch, useSelector } from 'react-redux';
 import { BackHandler } from 'react-native';
 
 import Itinerary from '../../components/Itinerary';
-import { getRoutes } from "../../redux/actions/flights";
-import styles from "./style";
+import { getRoutes } from '../../redux/actions/flights';
+import styles from './style';
 import genericStyles from '../../styles';
 
 export default function Results({ navigation }) {
@@ -24,9 +33,9 @@ export default function Results({ navigation }) {
         outboundDate,
         adults,
         children,
-        cabinClass
-      }
-    }
+        cabinClass,
+      },
+    },
   } = navigation;
 
   useEffect(
@@ -34,14 +43,17 @@ export default function Results({ navigation }) {
       if (!hasFetched) {
         fetchResults();
       }
-      BackHandler.addEventListener('hardwareBackPress', handleBackButtonPressAndroid);
+      BackHandler.addEventListener(
+        'hardwareBackPress',
+        handleBackButtonPressAndroid,
+      );
       setHasFetched(true);
 
       return () => {
         BackHandler.removeEventListener('hardwareBackPress');
       };
     },
-    [routesData]
+    [routesData],
   );
 
   const handleBackButtonPressAndroid = () => {
@@ -59,14 +71,14 @@ export default function Results({ navigation }) {
         outboundDate,
         adults,
         children,
-        cabinClass
-      })
+        cabinClass,
+      }),
     );
-  }
+  };
 
   const handleRetryPress = () => {
     fetchResults();
-  }
+  };
 
   const handleGoBackPress = () => {
     setHasFetched(false);
@@ -75,12 +87,21 @@ export default function Results({ navigation }) {
 
   const renderItineraries = () => {
     if (routesData && routesData.Itineraries) {
-      return routesData.Itineraries.map((itinerary, index) => <Itinerary key={index} {...itinerary} Carriers={routesData.Carriers} Agents={routesData.Agents} Legs={routesData.Legs} number={index + 1}/>);
+      return routesData.Itineraries.map((itinerary, index) => (
+        <Itinerary
+          key={index}
+          {...itinerary}
+          Carriers={routesData.Carriers}
+          Agents={routesData.Agents}
+          Legs={routesData.Legs}
+          number={index + 1}
+        />
+      ));
     }
   };
 
   const renderSearchInfo = () => {
-    return(
+    return (
       <Card style={styles.infoContainer}>
         <Text>Desde: {originPlace}</Text>
         <Text>Hacia: {destinationPlace}</Text>
@@ -99,16 +120,16 @@ export default function Results({ navigation }) {
       </Container>
     );
   } else if (!routesData && !error) {
-    return(
+    return (
       <Content contentContainerStyle={genericStyles.contentContainerStyle}>
         <Grid style={genericStyles.centeredGridStyle}>
-          <Spinner size={50}/>
+          <Spinner size={50} />
           <Text>Buscando resultados, espera un momento...</Text>
         </Grid>
       </Content>
     );
-  }else if (error) {
-    return(
+  } else if (error) {
+    return (
       <Content contentContainerStyle={genericStyles.contentContainerStyle}>
         <Grid style={genericStyles.centeredGridStyle}>
           <Text>Ops! parece que ha ocurrido un problema, intenta de nuevo</Text>
@@ -124,11 +145,11 @@ export default function Results({ navigation }) {
   }
 
   return (
-      <Container style={styles.container}>
-        <Content padder>
-          {renderSearchInfo()}
-          {renderItineraries()}
-        </Content>
-      </Container>
+    <Container style={styles.container}>
+      <Content padder>
+        {renderSearchInfo()}
+        {renderItineraries()}
+      </Content>
+    </Container>
   );
 }

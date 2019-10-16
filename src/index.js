@@ -8,6 +8,6 @@ const store = Store();
 
 export default () => (
   <Provider store={store}>
-    <Routes/>
+    <Routes />
   </Provider>
 );

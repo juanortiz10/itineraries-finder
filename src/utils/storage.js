@@ -9,7 +9,7 @@ export const saveItem = async (keyName, keyValue) => {
   }
 };
 
-export const getItem = async (keyValue) => {
+export const getItem = async keyValue => {
   try {
     return await AsyncStorage.getItem(keyValue);
   } catch (error) {

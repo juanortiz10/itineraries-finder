@@ -7,21 +7,20 @@ import { getItem } from '../../utils/storage';
 
 export default function LoadingPage({ navigation }) {
   useEffect(() => {
-    getItem(ACCESS_TOKEN)
-    .then((result) => {
+    getItem(ACCESS_TOKEN).then(result => {
       if (result) {
         navigation.navigate(HOME);
-      }else {
+      } else {
         navigation.navigate(LOGIN);
       }
     });
   });
 
-  return(
+  return (
     <Container>
       <Content contentContainerStyle={styles.contentStyle}>
         <Grid style={styles.gridStyle}>
-          <Spinner size={70}/>
+          <Spinner size={70} />
         </Grid>
       </Content>
     </Container>
